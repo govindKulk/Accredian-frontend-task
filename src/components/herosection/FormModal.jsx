@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormGroup, FormHelperText, InputLabel, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, Snackbar, FormHelperText, InputLabel, Modal, TextField, Typography } from '@mui/material'
 import React from 'react'
 import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
@@ -7,6 +7,8 @@ const FormModal = () => {
 
     const [isLoading, setIsLoading] = React.useState(false);
     const { isModalOpen, closeModal } = useModalStore();
+    
+
 
     function handleCloseModal() {
         if (isLoading) {
@@ -44,6 +46,9 @@ const FormModal = () => {
         }
 
       };
+
+
+
 
     return (
         <Modal
@@ -107,6 +112,16 @@ const FormModal = () => {
                             type="email"
                         />
                         {errors.refereeEmail && <FormHelperText>{errors.refereeEmail.message}</FormHelperText>}
+                    </FormControl>
+                    <FormControl fullWidth margin="normal" >
+                        <TextField
+                            {...register('message')}
+                            id="message"
+                            label="Message(Optional)"
+                            size="small"
+                            type="text"
+                        />
+                       
                     </FormControl>
                     <Button fullWidth sx={{ bgcolor: '#1a73e8' }} variant="contained" type="submit">
                         Send Referral
