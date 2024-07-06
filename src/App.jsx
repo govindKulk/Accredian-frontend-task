@@ -5,6 +5,7 @@ import './App.css'
 import TabGroup from './components/Navbar/TabGroup'
 import Hero from './components/herosection/Hero'
 import FormModal from './components/herosection/FormModal'
+import { Alert, Snackbar } from '@mui/material'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <TabGroup/>
       <Hero/>
       <FormModal/>
+
     </div>
   )
 }

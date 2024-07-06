@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Snackbar, FormHelperText, InputLabel, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, FormHelperText, Modal, TextField, Typography, Alert, Snackbar } from '@mui/material'
 import React from 'react'
 import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
@@ -8,6 +8,20 @@ const FormModal = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const { isModalOpen, closeModal } = useModalStore();
     
+    const [snackOpen, setsnackOpen] = React.useState(false);
+    const [requestError, setRequestError] = React.useState(null);
+    const [alertMessage, setAlertMessage] = React.useState('Successfully sent referral! ');
+    
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    
+    const handleClose = (event, reason) => {
+      console.log(reason);
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
 
 
     function handleCloseModal() {
@@ -17,7 +31,6 @@ const FormModal = () => {
         closeModal();
     }
 
-    const { register, handleSubmit, formState: {errors}, reset } = useForm();
 
     const onSubmit = async (data) => {
         // Handle form submission with data (refererName, refererEmail, refereeName, refereeEmail)
@@ -25,27 +38,44 @@ const FormModal = () => {
         console.log(data);
 
         const res = await fetch('https://accredian-backend-task-5nfb.onrender.com/referal', {
-            method: 'POST', 
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
 
-        if (res.ok){
-            alert('Referral sent successfully')
-            reset();
-            setIsLoading(false);
-            closeModal();
+        if (res.ok) {
+            setsnackOpen(true);
+            setAlertMessage('Successfully sent referral! ');
+            setRequestError(null);
+
+            setTimeout(() => {
+                setsnackOpen(false);
+                reset();
+                setIsLoading(false);
+                closeModal();
+
+            }, 6000)
         }
-        else{
-            alert('Error sending referral')
-            setIsLoading(false);
+        else {
             const data = await res.json();
             console.log(data);
+            setAlertMessage(data.message ? data.message : 'An error occured');
+            setRequestError(data)
+            setsnackOpen(true);
+
+            setTimeout(() => {
+                setsnackOpen(false);
+                setIsLoading(false);
+
+
+            }, 6000)
+
+            
         }
 
-      };
+    };
 
 
 
@@ -66,8 +96,19 @@ const FormModal = () => {
 
             <Box sx={{
                 bgcolor: "white", padding: '12px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-                width: '350px', 
+                width: '350px',
             }}>
+                 <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleClose}>
+                <Alert
+                    onClose={handleClose}
+                    severity={!requestError ? "success": "error"}
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
+
                 <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight={"bold"}>
                     Refer a friend and earn more.
                 </Typography>
@@ -121,13 +162,15 @@ const FormModal = () => {
                             size="small"
                             type="text"
                         />
-                       
+
                     </FormControl>
                     <Button fullWidth sx={{ bgcolor: '#1a73e8' }} variant="contained" type="submit">
                         Send Referral
                     </Button>
                 </form>
             </Box>
+
+           
         </Modal>
     )
 }
