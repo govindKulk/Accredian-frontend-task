@@ -6,8 +6,8 @@ const HeroContent = () => {
 
   const {openModal} = useModalStore()
   return (
-    <div className='space-y-8'>
-      <p className='font-bold text-[30px] sm:text-[44px] md:text-[88px] leading-[normal] md:leading-[88px]'>Let's learn and earn.</p>
+    <div className='space-y-8 z-[20]'>
+      <p className='font-bold text-[30px] sm:text-[44px]  lg:text-[88px] leading-[normal] md:leading-[88px]'>Let's learn and earn.</p>
       <p className='text-2xl font-light'>Get a chance to win up to  
         <span className='text-blue-500 font-semibold'> 
         {" "} Rs.15,000
