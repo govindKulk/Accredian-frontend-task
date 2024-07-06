@@ -1,8 +1,20 @@
-# React + Vite
+# Accredian Frontend #
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## This is the frontend task repository for the accredian internship assignment ##
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## STEPS ##
+### 1. CLONE IT.
+### 2. RUN `npm install`
+### 3. RUN `npm run dev`
+
+
+## FEATURES ##
+### 1. USE OF STANDARD LIBRARIES SUCH AS REACT-HOOK-FORM, MUI, ZUSTAND
+### 2. FLAWLESS FORM MANAGEMENT WITH PROPER ERROR HANDLING
+### 3. APPROPRIATE LOADING / FETCHING STATE MANAGEMENT AND PROPER UX FEEDBACK (SNEEKBAR NOTIFIERS)
+### 4. CLEAN, READABLE CODE AND FOLDER / COMPONENTS STRUCTURE
+
+### PLEASE GIVE ME FEEDBACK ON MY WORK 
+#### BEST REGARDS, GOVIND KULKARNI
+#### kulkarnigovind2003@gmail.com
