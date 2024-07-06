@@ -18,7 +18,7 @@ const Hero = () => {
       <Money rotate={"270deg"} right={"-5px"} top={"-5px"}/>
       <Money rotate={"360deg"} right={"5px"} top={"50%"}/>
       <HeroContent />
-      <div className='h-[400px] w-[450px] -order-1 sm:order-1 flex justify-center relative'>
+      <div className='h-full sm:h-[400px] w-full sm:w-[450px] -order-1 sm:order-1 flex justify-center relative'>
         <img className="h-full " src="hero.png" />
         <Money left={"50px"} bottom={"50px"} right={'unset'} top={"unset"}/>
         <Money left={"140px"} bottom={"unset"} right={'unset'} top={"10px"} rotate={"240deg"}/>

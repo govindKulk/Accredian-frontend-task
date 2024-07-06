@@ -46,6 +46,7 @@ const CoursesDropdown = () => {
                 variant="contained"
                 ref={anchorRef}
                 aria-label="Button group with a nested menu"
+                sx={{display: {'xs': 'none', 'md': 'block'}}}
             >
                 <Button onClick={handleClick}>{selectedIndex ? options[selectedIndex]: "Courses"}</Button>
                 <Button

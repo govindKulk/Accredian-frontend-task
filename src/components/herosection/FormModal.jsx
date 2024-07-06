@@ -1,7 +1,9 @@
 import { Box, Button, FormControl, FormHelperText, Modal, TextField, Typography, Alert, Snackbar } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 import React from 'react'
 import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
+import { IoMdSend } from 'react-icons/io'
 
 const FormModal = () => {
 
@@ -164,9 +166,14 @@ const FormModal = () => {
                         />
 
                     </FormControl>
-                    <Button fullWidth sx={{ bgcolor: '#1a73e8' }} variant="contained" type="submit">
+        
+                    <LoadingButton
+                    loading={isLoading}
+                    loadingPosition='start'
+                    startIcon={<IoMdSend size={20}/>}
+                    fullWidth sx={{ bgcolor: '#1a73e8' }} variant="contained" type="submit">
                         Send Referral
-                    </Button>
+                    </LoadingButton>
                 </form>
             </Box>
 

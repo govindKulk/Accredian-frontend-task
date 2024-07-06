@@ -20,7 +20,7 @@ const FlowSection = () => {
   return (
     <div className='
     bg-[rgba(238,245,255,1)]  h-[400px] w-[100%] bg-center bg-no-repeat
- gap-4 p-4 sm:p-0 relative
+ gap-4 p-4 sm:p-0 relative overflow-hidden
     '>
         <h3 className='text-xl text-center py-4'>How Do I  <span className="text-[#1a73e8] font-bold">Refer?</span></h3>
         <img src='/flowbg.png' alt='flowbg' className='max-w-screen-lg mx-auto w-full 
