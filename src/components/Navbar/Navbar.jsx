@@ -54,7 +54,7 @@ function Navbar() {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: "center", width: "100%" }} >
 
-                        <Box sx={{display: 'flex', alignItems: 'center', gap: '4px', width: '100%', }} gap={'8px'} >
+                        <Box sx={{display: 'flex', alignItems: 'center', gap: '8px', width: '100%', }} gap={'8px'} >
                             <img src="logo.png" />
                         <CoursesDropdown/>
                         </Box>

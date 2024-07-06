@@ -15,10 +15,10 @@ export default function TabGroup() {
       <Tabs value={value} onChange={handleChange} centered     
       
       indicatorColor='white' sx={{bgcolor: 'rgba(26, 115, 232, 0.11)', display: 'inline', borderRadius: '40px'}} >
-        <Tab label="Refer"  sx={{color: "black"}} />
-        <Tab label="Benefits"  sx={{color: "black"}}/>
-        <Tab label="FAQs" sx={{color: "black"}} />
-        <Tab label="Support" sx={{color: "black"}} />
+        <Tab label="Refer"  sx={{color: "black", fontSize: {'xs': '12px', 'sm': '15px'}}} />
+        <Tab label="Benefits"  sx={{color: "black", fontSize: {'xs': '12px', 'sm': '15px'}}}/>
+        <Tab label="FAQs" sx={{color: "black", fontSize: {'xs': '12px', 'sm': '15px'}}} />
+        <Tab label="Support" sx={{color: "black", fontSize: {'xs': '12px', 'sm': '15px'}}} />
       </Tabs>
     </Box>
   );
