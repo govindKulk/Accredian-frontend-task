@@ -16,6 +16,9 @@ import { FiMenu } from 'react-icons/fi'
 import { FaSortDown } from 'react-icons/fa'
 import { ButtonGroup, FormControl, InputLabel, Select } from '@mui/material';
 import CoursesDropdown from './CoursesDropdown';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context';
+import useLoginModal from '../../hooks/useLoginModal';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -26,6 +29,7 @@ function Navbar() {
     const [course, setCourse] = React.useState(null)
     const anchorRef = React.useRef(null);
 
+    const navigate = useNavigate()
     
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -38,9 +42,13 @@ function Navbar() {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (e) => {
         setAnchorElUser(null);
+
     };
+
+    const {isLoggedIn, logout} = React.useContext(AuthContext);
+    const {openModal, closeModal} = useLoginModal();
 
     return (
         <AppBar position="static" variant='outlined' sx={{
@@ -78,12 +86,15 @@ function Navbar() {
 
 
                             <Box  sx={{flexGrow: 0,display: {'xs': 'none', 'md': 'block'}}}>
-                                <Tooltip title="Open settings">
+                                {isLoggedIn ? <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                                     </IconButton>
-                                </Tooltip>
-                                <Menu
+                                </Tooltip> : <div className='flex gap-2 items-center'>
+                                <Button onClick={() => openModal()}>Login</Button> 
+                                <Button variant='contained'>Signup</Button>
+                                </div>}
+                                <Menu 
                                     sx={{ mt: '45px' }}
                                     id="menu-appbar"
                                     anchorEl={anchorElUser}
@@ -100,9 +111,17 @@ function Navbar() {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center">{setting}</Typography>
+                                        
+                                        <Link 
+                                        className='w-full h-full'
+                                        to={setting.toLowerCase()}>
+                                        <MenuItem key={setting} onClick={handleCloseUserMenu} name={setting.toLowerCase()}>
+                                   
+                                              {setting}
+                                               
                                         </MenuItem>
+
+                                        </Link>
                                     ))}
                                 </Menu>
                             </Box>
