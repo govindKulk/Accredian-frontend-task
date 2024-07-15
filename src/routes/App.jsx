@@ -2,7 +2,7 @@
 import '../App.css'
 import TabGroup from '../components/Navbar/TabGroup'
 import Hero from '../components/herosection/Hero'
-import FormModal from '../components/herosection/FormModal'
+import FormModal from '../components/modals/FormModal'
 import { Alert, Snackbar } from '@mui/material'
 import FlowSection from '../components/herosection/FlowSection'
 

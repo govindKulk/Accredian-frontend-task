@@ -1,20 +1,21 @@
 import { Button } from '@mui/material'
 import React, { useContext } from 'react'
+
+import { AuthContext } from '../../context'
 import useModalStore from '../../hooks/useModalStore'
-import { AuthContext } from '../../Context'
-import useLoginModal from '../../hooks/useLoginModal'
 
 const HeroContent = () => {
 
-  const {openModal} = useModalStore()
-  const {openModal: openLoginModal} = useLoginModal()
 
-  const {isLoggedIn} = useContext(AuthContext);
+  const {openModal} = useModalStore()
+
+  const {isLoggedin} = useContext(AuthContext);
+  console.log(isLoggedin, "isLoggedin")
   const handleReferModal = () => {
-    if(isLoggedIn){
-      openModal()
+    if(isLoggedin){
+      openModal('referral')
     } else {
-      openLoginModal()
+      openModal("login")
     }
   }
   return (
@@ -25,7 +26,7 @@ const HeroContent = () => {
         {" "} Rs.15,000
         </span></p>
 
-      <Button variant='contained' onClick={handleReferModal}>{isLoggedIn ? "Refer Now" : "Login"}</Button>
+      <Button variant='contained' onClick={handleReferModal}>{isLoggedin ? "Refer Now" : "Login"}</Button>
     </div>
   )
 }

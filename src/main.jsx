@@ -8,7 +8,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './ErrorPage.jsx'
 import Dashboard from './routes/Dashboard.jsx'
 import Root from './routes/Root.jsx'
-import { AuthProvider } from './Context.jsx'
+import { AuthProvider } from './context.jsx'
+import Profile from './routes/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: 'profile',
+        element: <Profile/>
       }
     ]
   },

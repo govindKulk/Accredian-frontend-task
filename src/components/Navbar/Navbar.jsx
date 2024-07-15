@@ -17,8 +17,8 @@ import { FaSortDown } from 'react-icons/fa'
 import { ButtonGroup, FormControl, InputLabel, Select } from '@mui/material';
 import CoursesDropdown from './CoursesDropdown';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../Context';
-import useLoginModal from '../../hooks/useLoginModal';
+import { AuthContext } from '../../context';
+import useModalStore from '../../hooks/useModalStore';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -29,7 +29,6 @@ function Navbar() {
     const [course, setCourse] = React.useState(null)
     const anchorRef = React.useRef(null);
 
-    const navigate = useNavigate()
     
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -43,12 +42,17 @@ function Navbar() {
     };
 
     const handleCloseUserMenu = (e) => {
+
+        if (e.target.attributes.name.value === 'logout') {
+            console.log('logging out')
+            logout();
+        }
         setAnchorElUser(null);
 
     };
 
-    const {isLoggedIn, logout} = React.useContext(AuthContext);
-    const {openModal, closeModal} = useLoginModal();
+    const {isLoggedin, logout} = React.useContext(AuthContext);
+    const {openModal, closeModal} = useModalStore();
 
     return (
         <AppBar position="static" variant='outlined' sx={{
@@ -86,13 +90,13 @@ function Navbar() {
 
 
                             <Box  sx={{flexGrow: 0,display: {'xs': 'none', 'md': 'block'}}}>
-                                {isLoggedIn ? <Tooltip title="Open settings">
+                                {isLoggedin ? <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                                     </IconButton>
                                 </Tooltip> : <div className='flex gap-2 items-center'>
-                                <Button onClick={() => openModal()}>Login</Button> 
-                                <Button variant='contained'>Signup</Button>
+                                <Button onClick={() => openModal('login')}>Login</Button> 
+                                <Button variant='contained' onClick={() => openModal('register')}>Signup</Button>
                                 </div>}
                                 <Menu 
                                     sx={{ mt: '45px' }}
@@ -114,7 +118,7 @@ function Navbar() {
                                         
                                         <Link 
                                         className='w-full h-full'
-                                        to={setting.toLowerCase()}>
+                                        to={setting !== 'Logout' ? setting.toLowerCase() : "/" }>
                                         <MenuItem key={setting} onClick={handleCloseUserMenu} name={setting.toLowerCase()}>
                                    
                                               {setting}

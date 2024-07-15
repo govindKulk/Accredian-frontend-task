@@ -1,16 +1,15 @@
 import { Box, Button, FormControl, FormHelperText, Modal, TextField, Typography, Alert, Snackbar } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import React, { useContext } from 'react'
-import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
 import { IoMdSend } from 'react-icons/io'
-import { AuthContext } from '../../Context'
-import useLoginModal from '../../hooks/useLoginModal'
+import { AuthContext } from '../../context.jsx'
+import useModalStore from '../../hooks/useModalStore.js'
 
-const LoginModal = () => {
+const RegisterModal = () => {
 
     const [isLoading, setIsLoading] = React.useState(false);
-    const { isModalOpen, closeModal } = useLoginModal();
+    const { isModalOpen, closeModal, type } = useModalStore();
     
     const [snackOpen, setsnackOpen] = React.useState(false);
     const [requestError, setRequestError] = React.useState(null);
@@ -43,11 +42,12 @@ const LoginModal = () => {
         setIsLoading(true);
         console.log(data);
 
-        const res = await fetch('https://accredian-backend-task-5nfb.onrender.com/user/login', {
+        const res = await fetch('https://accredian-backend-task-5nfb.onrender.com/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(data)
         })
 
@@ -56,7 +56,8 @@ const LoginModal = () => {
             setAlertMessage('Successfully Loggedin! ');
             setRequestError(null);
             const data = await res.json();
-            login(data.accessToken)
+            console.log(data);
+            login(data.accessToken, data.user);
 
             setTimeout(() => {
                 setsnackOpen(false);
@@ -90,7 +91,7 @@ const LoginModal = () => {
 
     return (
         <Modal
-            open={isModalOpen}
+            open={isModalOpen && type === "register"}
             onClose={handleCloseModal}
             sx={{
                 display: 'flex'
@@ -132,6 +133,17 @@ const LoginModal = () => {
                         />
                         {errors.email && <FormHelperText>{errors.email.message}</FormHelperText>}
                     </FormControl>
+                    <FormControl fullWidth margin="normal" error={errors.name}>
+
+                        <TextField
+                            {...register('name', { required: 'Your name is required'})}
+                            id="name"
+                            label="Your name"
+                            size="small"
+                            type="text"
+                        />
+                        {errors.name && <FormHelperText>{errors.name.message}</FormHelperText>}
+                    </FormControl>
                     <FormControl fullWidth margin="normal" error={errors.password}>
                         <TextField
                             {...register('password', { required: 'Your Password is required' })}
@@ -159,4 +171,4 @@ const LoginModal = () => {
     )
 }
 
-export default LoginModal
+export default RegisterModal

@@ -1,24 +1,46 @@
 import { Box, Button, FormControl, FormHelperText, Modal, TextField, Typography, Alert, Snackbar } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
 import { IoMdSend } from 'react-icons/io'
-import { AuthContext } from '../../Context'
+import { AuthContext } from '../../context'
 import useLoginModal from '../../hooks/useLoginModal'
 
 const FormModal = () => {
 
     const [isLoading, setIsLoading] = React.useState(false);
-    const { isModalOpen, closeModal } = useModalStore();
-    const { openModal: openLoginModal } = useLoginModal();
+    const { isModalOpen, closeModal, type } = useModalStore();
     
     const [snackOpen, setsnackOpen] = React.useState(false);
     const [requestError, setRequestError] = React.useState(null);
     const [alertMessage, setAlertMessage] = React.useState('Successfully sent referral! ');
+
+
+    const {  storedToken, user  } = React.useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm(
+        {
+            defaultValues: {
+                refererName: user ? user.name : '',
+                refererEmail: user ? user.email : ''
+            }
+        }
+    );
+
+
+
+    useEffect(() => {
+        console.log(user, "user")
+        if (user) {
+            reset({
+                refererName: user.name,
+                refererEmail: user.email
+            })
+        }
+    }, [user])
+
     
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    
+
     const handleClose = (event, reason) => {
       console.log(reason);
       if (reason === 'clickaway') {
@@ -36,7 +58,6 @@ const FormModal = () => {
         closeModal();
     }
 
-    const { isLoggedIn, storedToken } = React.useContext(AuthContext);
     const onSubmit = async (data) => {
         // Handle form submission with data (refererName, refererEmail, refereeName, refereeEmail)
         setIsLoading(true);
@@ -44,6 +65,7 @@ const FormModal = () => {
 
         const res = await fetch('https://accredian-backend-task-5nfb.onrender.com/referal', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': storedToken
@@ -89,7 +111,7 @@ const FormModal = () => {
 
     return (
         <Modal
-            open={isModalOpen}
+            open={isModalOpen && type === 'referral'}
             onClose={handleCloseModal}
             sx={{
                 display: 'flex'
