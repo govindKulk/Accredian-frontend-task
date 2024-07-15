@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from 'react'
 import useModalStore from '../../hooks/useModalStore'
 import { useForm } from 'react-hook-form'
 import { IoMdSend } from 'react-icons/io'
-import { AuthContext } from '../../context'
+import { AuthContext } from '../../Context'
 import useLoginModal from '../../hooks/useLoginModal'
 
 const FormModal = () => {

@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React, { useContext } from 'react'
 
-import { AuthContext } from '../../context'
+import { AuthContext } from '../../Context'
 import useModalStore from '../../hooks/useModalStore'
 
 const HeroContent = () => {

@@ -17,7 +17,7 @@ import { FaSortDown } from 'react-icons/fa'
 import { ButtonGroup, FormControl, InputLabel, Select } from '@mui/material';
 import CoursesDropdown from './CoursesDropdown';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context';
+import { AuthContext } from '../../Context';
 import useModalStore from '../../hooks/useModalStore';
 
 const pages = ['Products', 'Pricing', 'Blog'];

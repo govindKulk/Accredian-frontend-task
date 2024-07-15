@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../context'
+import { AuthContext } from '../Context'
 import { redirect } from 'react-router-dom';
 import useModalStore from '../hooks/useModalStore';
 import ProfileCard from '../components/ProfileCard';

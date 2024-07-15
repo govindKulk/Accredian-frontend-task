@@ -3,7 +3,7 @@ import { LoadingButton } from '@mui/lab'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoMdSend } from 'react-icons/io'
-import { AuthContext } from '../../context.jsx'
+import { AuthContext } from '../../Context.jsx'
 import useModalStore from '../../hooks/useModalStore.js'
 
 const RegisterModal = () => {
